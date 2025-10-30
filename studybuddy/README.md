@@ -31,7 +31,7 @@ Next Steps
 
 -Improve interface and error handling
 ---
-## **6️⃣ data/notes.json & data/tasks.json**
+## ** data/notes.json & data/tasks.json**
 Both start **empty** with:
 
 ```json
