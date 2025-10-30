@@ -22,3 +22,17 @@ summarize note
 study advice
 exit
 
+Next Steps
+-Add search/filter options
+
+-Implement tagging and deadlines
+
+-Add real AI integration (e.g. OpenAI API)
+
+-Improve interface and error handling
+---
+## **6️⃣ data/notes.json & data/tasks.json**
+Both start **empty** with:
+
+```json
+[]
