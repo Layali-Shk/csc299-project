@@ -1,1 +1,155 @@
+import json
+import os
+import sys
+from datetime import datetime
+
+DATA_FILE = "tasks.json"
+
+PRIORITY_LEVELS = ["Low", "Medium", "High"]
+
+class TaskManager:
+    def __init__(self, filepath):
+        self.filepath = filepath
+        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        if not os.path.exists(filepath):
+            with open(filepath, "w") as f:
+                json.dump([], f)
+
+    def _load(self):
+        with open(self.filepath, "r") as f:
+            return json.load(f)
+
+    def _save(self, data):
+        with open(self.filepath, "w") as f:
+            json.dump(data, f, indent=2)
+
+    def add(self, description, priority="Medium", due_date=None):
+        tasks = self._load()
+        new_task = {
+            "id": len(tasks) + 1,
+            "description": description,
+            "priority": priority,
+            "done": False,
+            "due_date": due_date
+        }
+        tasks.append(new_task)
+        self._save(tasks)
+        print(f"✅ Task added: {description} (Priority: {priority}, Due: {due_date or 'N/A'})")
+
+    def list_all(self, sort_by=None):
+        tasks = self._load()
+        if not tasks:
+            print("📭 No tasks found.")
+            return
+
+        if sort_by == "priority":
+            tasks.sort(key=lambda t: PRIORITY_LEVELS.index(t["priority"]))
+        elif sort_by == "due_date":
+            tasks.sort(key=lambda t: t["due_date"] or "9999-12-31")
+
+        print("📝 Your Tasks:")
+        for t in tasks:
+            status = "✅" if t["done"] else "🕓"
+            overdue = ""
+            if t["due_date"] and not t["done"]:
+                due = datetime.strptime(t["due_date"], "%Y-%m-%d")
+                if due < datetime.now():
+                    overdue = "⚠️ Overdue"
+            print(f"{t['id']}. {t['description']} [{status}] (Priority: {t['priority']}) Due: {t['due_date'] or 'N/A'} {overdue}")
+
+    def search(self, keyword, status=None, priority=None):
+        tasks = self._load()
+        results = [t for t in tasks if keyword.lower() in t["description"].lower()]
+
+        if status == "done":
+            results = [t for t in results if t["done"]]
+        elif status == "not done":
+            results = [t for t in results if not t["done"]]
+
+        if priority:
+            results = [t for t in results if t["priority"].lower() == priority.lower()]
+
+        if results:
+            print(f"🔍 Search results for '{keyword}':")
+            for t in results:
+                status_icon = "✅" if t["done"] else "🕓"
+                print(f"{t['id']}. {t['description']} [{status_icon}] (Priority: {t['priority']}, Due: {t['due_date'] or 'N/A'})")
+        else:
+            print(f"No tasks found matching criteria.")
+
+    def mark_done(self, task_id):
+        tasks = self._load()
+        for t in tasks:
+            if t["id"] == task_id:
+                t["done"] = True
+                self._save(tasks)
+                print(f"✅ Task {task_id} marked done.")
+                return
+        print(f"❌ Task {task_id} not found.")
+
+    def mark_undone(self, task_id):
+        tasks = self._load()
+        for t in tasks:
+            if t["id"] == task_id:
+                t["done"] = False
+                self._save(tasks)
+                print(f"⚠️ Task {task_id} marked not done.")
+                return
+        print(f"❌ Task {task_id} not found.")
+
+def show_help():
+    print("""
+Usage:
+    python tasks2.py add "description" [priority] [due_date]  → Add a task (priority: Low/Medium/High, due_date: YYYY-MM-DD)
+    python tasks2.py list [sort_by]                           → List all tasks (sort_by: priority/due_date)
+    python tasks2.py search "keyword" [status] [priority]    → Search tasks (status: done/not done)
+    python tasks2.py done <task_id>                           → Mark task as done
+    python tasks2.py undone <task_id>                         → Mark task as not done
+    python tasks2.py help                                     → Show this help message
+""")
+
+def main():
+    manager = TaskManager(DATA_FILE)
+
+    if len(sys.argv) < 2:
+        show_help()
+        return
+
+    command = sys.argv[1].lower()
+
+    if command == "add" and len(sys.argv) >= 3:
+        description = sys.argv[2]
+        priority = sys.argv[3] if len(sys.argv) >= 4 else "Medium"
+        due_date = sys.argv[4] if len(sys.argv) >= 5 else None
+        if priority not in PRIORITY_LEVELS:
+            print(f"❌ Invalid priority. Use one of: {PRIORITY_LEVELS}")
+            return
+        manager.add(description, priority, due_date)
+    elif command == "list":
+        sort_by = sys.argv[2] if len(sys.argv) >= 3 else None
+        manager.list_all(sort_by)
+    elif command == "search":
+        keyword = sys.argv[2]
+        status = sys.argv[3] if len(sys.argv) >= 4 else None
+        priority = sys.argv[4] if len(sys.argv) >= 5 else None
+        manager.search(keyword, status, priority)
+    elif command == "done" and len(sys.argv) == 3:
+        try:
+            task_id = int(sys.argv[2])
+            manager.mark_done(task_id)
+        except ValueError:
+            print("❌ Task ID must be a number.")
+    elif command == "undone" and len(sys.argv) == 3:
+        try:
+            task_id = int(sys.argv[2])
+            manager.mark_undone(task_id)
+        except ValueError:
+            print("❌ Task ID must be a number.")
+    elif command == "help":
+        show_help()
+    else:
+        print("❌ Invalid command. Type `python tasks2.py help` for usage.")
+
+if __name__ == "__main__":
+    main()
 
