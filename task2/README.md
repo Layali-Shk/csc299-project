@@ -1,19 +1,37 @@
 # Tasks2 — Advanced Task Manager
 
-Features:
-- Add tasks with priority (Low/Medium/High) and optional due date
-- List all tasks (optionally sort by priority or due date)
-- Search tasks by keyword, filter by status or priority
-- Mark tasks as done or undone
-- Overdue tasks are highlighted
+This is an upgraded version of the simple task manager from **Tasks1**.  
+It adds several new features to make task management more powerful and organized.
+
+## Features (compared to Tasks1)
+
+**From Tasks1:**
+- Add tasks
+- List all tasks
+- Search tasks by keyword
+- Store tasks in a JSON file
+
+**New in Tasks2:**
+- **Task Priorities**: Low / Medium / High
+- **Optional Due Dates** for each task
+- **Mark tasks as done or undone**
+- **Filter search** by status (done/not done) or priority
+- **Sort tasks** by priority or due date
+- **Overdue tasks are highlighted**
+- **Cleaner terminal output** with emojis for status, priority, and overdue
+- **Class-based design** (TaskManager), making it easier to extend
+
+---
 
 ## Setup
 
 1. Navigate to the tasks2 directory:
     cd tasks2
 
-2. Ensure tasks.json exists:
+2. Ensure tasks.json exists (can be empty initially):
     []
+
+---
 
 ## Usage Examples
 
@@ -34,4 +52,3 @@ Mark task undone:
 
 Help:
     python tasks2.py help
-
