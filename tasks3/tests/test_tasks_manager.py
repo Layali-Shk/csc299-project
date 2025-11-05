@@ -1,13 +1,13 @@
+from tasks3.tasks_manager import TaskManager
 
-class TaskManager:
-    def __init__(self):
-        self.tasks = []
+def test_add_task():
+    tm = TaskManager()
+    tm.add_task("Finish homework")
+    assert len(tm.tasks) == 1
+    assert tm.tasks[0]["title"] == "Finish homework"
 
-    def add_task(self, title):
-        self.tasks.append({"title": title, "completed": False})
-
-    def complete_task(self, index):
-        self.tasks[index]["completed"] = True
-
-    def run(self):
-        print("TaskManager running. Number of tasks:", len(self.tasks))
+def test_complete_task():
+    tm = TaskManager()
+    tm.add_task("Submit assignment")
+    tm.complete_task(0)
+    assert tm.tasks[0]["completed"] is True
