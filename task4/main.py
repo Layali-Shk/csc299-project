@@ -8,8 +8,14 @@ def summarize_task(task_descriptions):
         response = client.chat.completions.create(
             model="gpt-5-mini",
             messages=[
-                {"role": "system", "content": "You are a helpful assistant that summarizes tasks into short phrases."},
-                {"role": "user", "content": f"Summarize this task in a few words:\n\n{description}"}
+                {
+                    "role": "system",
+                    "content": "You are a helpful assistant that summarizes tasks into short phrases."
+                },
+                {
+                    "role": "user",
+                    "content": f"Summarize this task in a few words:\n\n{description}"
+                }
             ]
         )
         summary = response.choices[0].message.content.strip()
@@ -18,7 +24,7 @@ def summarize_task(task_descriptions):
 
 
 if __name__ == "__main__":
-    # Two sample paragraph-length descriptions
+    # Two sample paragraph-length task descriptions
     tasks = [
         """Develop a Python program that tracks student grades for a semester.
         The program should allow adding new students, recording grades for different assignments,
@@ -29,8 +35,10 @@ if __name__ == "__main__":
         and the interface should update dynamically using JavaScript."""
     ]
 
+    # Generate summaries
     summaries = summarize_task(tasks)
 
+    # Print the summaries
     print("Task Summaries:")
     for i, s in enumerate(summaries, start=1):
         print(f"{i}. {s}")
