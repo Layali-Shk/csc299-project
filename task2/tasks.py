@@ -10,7 +10,9 @@ PRIORITY_LEVELS = ["Low", "Medium", "High"]
 class TaskManager:
     def __init__(self, filepath):
         self.filepath = filepath
-        os.makedirs(os.path.dirname(filepath), exist_ok=True)
+        dir_path = os.path.dirname(filepath)
+        if dir_path: 
+            os.makedirs(dir_path, exist_ok=True)
         if not os.path.exists(filepath):
             with open(filepath, "w") as f:
                 json.dump([], f)
