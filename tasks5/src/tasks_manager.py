@@ -1,3 +1,4 @@
+# src/tasks_manager.py
 import json
 import os
 from .models import Task
@@ -17,11 +18,11 @@ class TasksManager:
     def _load_tasks(self):
         with open(TASKS_FILE, 'r') as f:
             data = json.load(f)
-        return [Task.from_dict(d) for d in data]
+        return [Task(d['id'], d['title'], d.get('completed', False)) for d in data]
 
     def _save_tasks(self):
         with open(TASKS_FILE, 'w') as f:
-            json.dump([t.to_dict() for t in self.tasks], f, indent=4)
+            json.dump([t.__dict__ for t in self.tasks], f, indent=4)
 
     def add_task(self, title: str):
         task = Task(self.next_id, title)
