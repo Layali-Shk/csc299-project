@@ -16,22 +16,22 @@ py -m venv .venv
 # macOS/Linux
 source .venv/bin/activate
 
-#Install dependencies:
+# Install dependencies:
 py -m pip install -r requirements.txt
-#Usage
+# Usage
 **Run the task manager CLI:**
 py -m src.tasks_manager
-#Example usage in Python:
+# Example usage in Python:
 from src import tasks_manager
 
 tm = tasks_manager.TaskManager()
 tm.add_task("Example Task", "This is a description")
 print(tm.list_tasks())
 
-#Running Tests
+# Running Tests
 py -m test
 
-#Project Structure
+# Project Structure
 tasks5/
 ├── src/                  # Source code
 │   └── tasks_manager.py
