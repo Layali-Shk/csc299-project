@@ -37,8 +37,9 @@ print(tm.list_tasks())
 
 # Running Tests
 py -m test
-```
+
 # Project Structure
+```
 tasks5/
 ├── src/
 │   └── tasks_manager.py
