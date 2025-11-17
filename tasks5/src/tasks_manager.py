@@ -12,16 +12,16 @@ class TasksManager:
             with open(TASKS_FILE, 'w') as f:
                 f.write("[]")
         self.tasks = self._load_tasks()
-        self.next_id = max([t['id'] for t in self.tasks], default=0) + 1
+        self.next_id = max([t.id for t in self.tasks], default=0) + 1
 
     def _load_tasks(self):
         with open(TASKS_FILE, 'r') as f:
             data = json.load(f)
-        return [Task(d['id'], d['title'], d.get('completed', False)) for d in data]
+        return [Task.from_dict(d) for d in data]
 
     def _save_tasks(self):
         with open(TASKS_FILE, 'w') as f:
-            json.dump([t.__dict__ for t in self.tasks], f, indent=4)
+            json.dump([t.to_dict() for t in self.tasks], f, indent=4)
 
     def add_task(self, title: str):
         task = Task(self.next_id, title)
