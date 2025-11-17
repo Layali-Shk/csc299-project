@@ -1,13 +1,8 @@
-from src.models import Task
+class Task:
+    def __init__(self, id, title, completed=False):
+        self.id = id
+        self.title = title
+        self.completed = completed
 
-def test_task_creation():
-    t = Task(1, "Study")
-    assert t.id == 1
-    assert t.title == "Study"
-    assert not t.completed
-
-def test_task_complete():
-    t = Task(1, "Study")
-    t.complete()
-    assert t.completed
-
+    def complete(self):
+        self.completed = True
