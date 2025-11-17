@@ -25,22 +25,4 @@ Run the task manager:
 
 ```bash
 bash scripts/run.sh
-Or directly with Python:
 
-python -m src.tasks_manager
-
-
-Run tests with:
-
-pytest
-
-Notes
-
-This project demonstrates spec-driven development using Spec-Kit and is structured to keep implementation, specs, and testing organized.
-
-
----
-
-If you want, I can also **rewrite it in a “ready-to-paste” version that looks nice on GitHub with headings and bullets** — it’ll be short but professional.  
-
-Do you want me to do that?
