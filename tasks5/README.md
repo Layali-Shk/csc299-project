@@ -1,63 +1,50 @@
-# Task 5 - Knowledge & Task Manager
+Task 5 - Knowledge & Task Manager
+Single-user CLI application for managing knowledge nodes (markdown) and tasks.
 
-Single-user CLI application for managing knowledge nodes and tasks, built using GitHub's Spec-Kit.
+Features
+- Knowledge Nodes: Create and manage markdown-based knowledge entries
+- Tasks: Create and track tasks with title and description
+- Linking: Connect nodes to tasks, and tasks to nodes
+- CLI Interface: Simple command-line interface
+- Persistence: Optional local JSON storage
 
----
+Installation
+Ensure Python 3.12+ is installed:
 
-## Features
-
-- **Knowledge Nodes**: Create and manage markdown-based knowledge entries.
-- **Tasks**: Create, list, and manage tasks with title and description.
-- **Linking**: Connect nodes to tasks and nodes to other nodes.
-- **Persistence**: Optional local JSON storage.
-- **CLI Interface**: Simple command-line interface with human-readable output.
-
----
-
-## Installation
-
-1. Ensure Python 3.12+ is installed:
-
-```bash
 py --version
-Create and activate a virtual environment (optional but recommended):
 
-bash
-Copy code
+Create a virtual environment (optional but recommended):
+
 py -m venv .venv
 # Windows
 .venv\Scripts\activate
 # macOS/Linux
 source .venv/bin/activate
+
 Install dependencies:
 
-bash
-Copy code
 py -m pip install -r requirements.txt
+
 Usage
 Run the task manager CLI:
 
-bash
-Copy code
 py -m src.tasks_manager
+
 Example usage:
 
-python
-Copy code
 from src import tasks_manager
 
 tm = tasks_manager.TaskManager()
 tm.add_task("Example Task", "This is a description")
 print(tm.list_tasks())
+
 Running Tests
-bash
-Copy code
+
 py -m pytest
 All included tests should pass.
 
 Project Structure
-bash
-Copy code
+
 tasks5/
 ├── src/                  # Source code
 │   └── tasks_manager.py
@@ -75,16 +62,6 @@ tasks5/
 ├── .gitignore
 ├── pyproject.toml
 └── README.md
-Data Storage (Optional)
-To persist tasks and knowledge nodes, the following JSON files are used:
-
-data/nodes.json
-
-data/tasks.json
-
-data/links.json
-
-Each file is automatically created if it does not exist.
 
 License
 MIT
