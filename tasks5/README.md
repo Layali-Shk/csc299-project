@@ -16,6 +16,13 @@ py -m venv .venv
 # macOS/Linux
 source .venv/bin/activate
 
+**Installation**  
+Ensure Python 3.12+ is installed:
+```bash
+
+py --version
+```
+
 # Install dependencies:
 py -m pip install -r requirements.txt
 # Usage
@@ -30,28 +37,25 @@ print(tm.list_tasks())
 
 # Running Tests
 py -m test
-
+```
 # Project Structure
 tasks5/
-├── src/                  # Source code
+├── src/
 │   └── tasks_manager.py
-├── tests/                # Tests
+├── tests/
 │   ├── test_models.py
 │   └── test_tasks_manager.py
-├── data/                 # Optional runtime JSON storage
+├── data/
 │   ├── nodes.json
 │   ├── tasks.json
 │   └── links.json
-├── specify/              # Spec-Kit files
+├── specify/
 │   ├── memory/constitution.md
 │   ├── scripts/bash/
 │   └── templates/
 ├── .gitignore
 ├── pyproject.toml
 └── README.md
+```
 
-**Installation**  
-Ensure Python 3.12+ is installed:
-```bash
 
-py --version
